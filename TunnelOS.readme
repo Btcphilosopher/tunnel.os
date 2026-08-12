@@ -1,0 +1,845 @@
+TunnelOS
+A Computational Infrastructure Platform for Data-Driven Tunnel Construction
+
+TunnelOS is a proposed software architecture for the digitisation, observation, simulation and optimisation of tunnel-boring operations. It is designed around a three-layer computational model:
+
+Rust for real-time industrial telemetry and edge processing;
+Python for simulation, statistical analysis and optimisation;
+Kotlin for the operator-facing control and visualisation environment.
+
+The central proposition is that tunnel construction can be represented as a continuously observed cyber-physical system, in which machine telemetry, geological information, construction progress, maintenance state and project economics are brought into a common computational model.
+
+TunnelOS is therefore conceived not as a conventional dashboard, but as a software infrastructure layer for underground construction.
+
+1. Executive Thesis
+
+Tunnel boring is an unusually data-intensive engineering process.
+
+A modern TBM continuously generates measurements relating to thrust, torque, cutterhead rotation, pressure, temperature, vibration, penetration, machine state and production. At the same time, the construction environment produces independent streams of geological, geotechnical, surveying, instrumentation and project-management information.
+
+The engineering problem is consequently not simply one of data acquisition. It is one of data integration, temporal inference, uncertainty management and decision support.
+
+TunnelOS proposes an architecture in which these information streams become computationally related:
+
+                  TUNNELOS
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+     MACHINE      GEOLOGY      PROJECT
+      DATA         DATA         DATA
+        │            │            │
+        └────────────┼────────────┘
+                     ↓
+              DIGITAL TWIN
+                     ↓
+        ┌────────────┼────────────┐
+        ↓            ↓            ↓
+   SIMULATION   OPTIMISATION   FORECASTING
+        │            │            │
+        └────────────┼────────────┘
+                     ↓
+             ENGINEERING DECISION
+
+The investment thesis is therefore based upon the creation of a specialised computational infrastructure layer for tunnelling, rather than another general-purpose construction-management application.
+
+2. The Problem
+
+Underground construction presents a particularly difficult computational environment because the system being operated is only partially observable.
+
+The operator can measure machine behaviour continuously, while geological conditions ahead of the cutting face are inherently uncertain.
+
+Consequently:
+
+Observed Machine State
+        +
+Historical Data
+        +
+Geological Model
+        +
+Instrumentation
+        +
+Engineering Knowledge
+        ↓
+Probabilistic Understanding
+        ↓
+Engineering Decision
+
+TBM operational data has consequently become an important source of information for understanding machine performance and, potentially, geological conditions. Academic research has demonstrated the use of TBM operating data for geological prediction and for optimisation of operating parameters.
+
+The underlying opportunity is to transform this fragmented information environment into a coherent computational system.
+
+3. The TunnelOS Proposition
+
+TunnelOS seeks to provide five capabilities within one architecture:
+
+Real-time telemetry
+Digital representation of the tunnel and TBM
+Simulation
+Engineering optimisation
+Predictive analytics
+
+The resulting system can be understood as a feedback architecture:
+
+             PHYSICAL WORLD
+                   │
+                   ↓
+              TBM / SENSORS
+                   │
+                   ↓
+          REAL-TIME TELEMETRY
+                   │
+                   ↓
+              DIGITAL TWIN
+                   │
+             ┌─────┴─────┐
+             ↓           ↓
+        SIMULATION    ANALYTICS
+             │           │
+             └─────┬─────┘
+                   ↓
+             OPTIMISATION
+                   │
+                   ↓
+            HUMAN ENGINEER
+                   │
+                   ↓
+            PHYSICAL SYSTEM
+
+The important architectural distinction is that TunnelOS is designed to inform and augment engineering decisions, rather than initially attempting to replace certified machine-control systems.
+
+4. Technical Architecture
+
+TunnelOS consists of three principal computational layers.
+
+Rust — Industrial Telemetry
+
+Rust forms the real-time data-acquisition and edge-computing layer.
+
+TBM / PLC / Sensors
+        ↓
+Industrial Protocols
+        ↓
+Rust Telemetry Engine
+        ↓
+Validation
+        ↓
+Normalisation
+        ↓
+Buffering
+        ↓
+Event Stream
+
+The Rust layer is intended to provide:
+
+High-throughput telemetry ingestion
+Deterministic data processing
+Sensor validation
+Timestamping
+Event generation
+Local buffering
+Connection management
+Real-time streaming
+Machine-state reconstruction
+
+It can interface with appropriate industrial protocols and downstream systems without making the higher-level applications responsible for raw machine communication.
+
+Python — Analytical Engine
+
+Python constitutes the computational research and analytical layer.
+
+It is intended to provide:
+
+TBM simulation
+Digital-twin modelling
+Geological modelling
+Statistical analysis
+Optimisation
+Energy modelling
+Cutter-wear analysis
+Predictive maintenance
+Production forecasting
+Project economics
+
+The conceptual loop is:
+
+TELEMETRY
+    ↓
+STATE ESTIMATION
+    ↓
+SIMULATION
+    ↓
+OPTIMISATION
+    ↓
+FORECAST
+    ↓
+ENGINEERING RECOMMENDATION
+
+Importantly, optimisation outputs are recommendations rather than uncontrolled actuator commands.
+
+Kotlin — Operational Interface
+
+Kotlin provides the human-facing computational environment.
+
+The interface is designed for:
+
+Control rooms
+Engineering offices
+Site management
+Tablets
+Desktop workstations
+
+It provides:
+
+Live telemetry
+TBM state
+Tunnel visualisation
+Geological profiles
+Alerts
+Machine health
+Production metrics
+Historical analysis
+Simulation results
+
+The interface therefore becomes the human-readable representation of the digital twin.
+
+5. Digital Twin
+
+The central abstraction within TunnelOS is the tunnel digital twin.
+
+It represents the relationship between:
+
+TBM
+│
+├── Machine State
+├── Mechanical State
+├── Electrical State
+├── Hydraulic State
+├── Cutter State
+│
+├── Position
+├── Chainage
+└── Production
+
+TUNNEL
+│
+├── Geometry
+├── Alignment
+├── Lining
+├── Geological Zones
+└── Infrastructure
+
+ENVIRONMENT
+│
+├── Ground Conditions
+├── Groundwater
+├── Instrumentation
+└── External Constraints
+
+The purpose is not merely visualisation.
+
+The digital twin provides the state space within which analytical models operate.
+
+Digital-twin research increasingly identifies this combination of continuously updated physical state, computational models and predictive maintenance as an important industrial architecture, while also highlighting unresolved problems surrounding explainability, standardisation and generalisability.
+
+TunnelOS therefore treats the digital twin as an engineering model rather than a marketing visualisation.
+
+6. Geological Intelligence
+
+One of the principal sources of uncertainty in tunnelling is the condition of the ground ahead of the excavation face.
+
+TunnelOS is designed to combine:
+
+Geological surveys
+Borehole information
+Geotechnical measurements
+TBM telemetry
+Historical excavation data
+Ground instrumentation
+Engineering interpretation
+
+into a spatial and temporal geological model.
+
+A conceptual representation is:
+
+CHAINAGE
+
+0 ─────── 2,000 ─────── 4,000 ─────── 6,000m
+          │                │
+        ROCK            MIXED GROUND
+                           │
+                       WATER RISK
+
+The system can subsequently compare predicted and observed conditions.
+
+This creates an important feedback mechanism:
+
+PREDICTED GEOLOGY
+       ↓
+TBM OPERATES
+       ↓
+TELEMETRY OBSERVED
+       ↓
+GROUND CONDITIONS INFERRED
+       ↓
+MODEL UPDATED
+
+Research has demonstrated that TBM operational data can be used as an additional source for geological prediction, particularly over short ranges ahead of the machine.
+
+7. Optimisation
+
+TunnelOS is intended to treat TBM operation as a constrained optimisation problem.
+
+A simplified objective function can be expressed conceptually as:
+
+MAXIMISE
+
+    excavation productivity
+
+SUBJECT TO
+
+    machine constraints
+    energy consumption
+    cutter wear
+    thermal constraints
+    geological conditions
+    operational constraints
+
+The system can therefore evaluate alternative scenarios:
+
+BASELINE
+      │
+      ├── HIGH PRODUCTIVITY
+      │
+      ├── LOW ENERGY
+      │
+      ├── LOW WEAR
+      │
+      └── LOW RISK
+
+Academic work has already demonstrated the feasibility of multi-objective TBM operating-parameter optimisation under engineering constraints, including field validation in published research.
+
+TunnelOS seeks to provide an extensible software architecture around this class of problem.
+
+8. Predictive Maintenance
+
+Machine downtime represents a potentially significant economic variable in tunnel construction.
+
+TunnelOS therefore models component health as a temporal data problem.
+
+TEMPERATURE
+     +
+VIBRATION
+     +
+PRESSURE
+     +
+POWER
+     +
+OPERATING HOURS
+     ↓
+HEALTH MODEL
+     ↓
+ANOMALY DETECTION
+     ↓
+MAINTENANCE FORECAST
+
+The architecture deliberately favours interpretable engineering models before introducing opaque machine-learning systems.
+
+This distinction is important.
+
+A technically sophisticated industrial platform should not confuse:
+
+prediction
+
+with
+
+understanding.
+
+Machine learning can subsequently be introduced where sufficient validated historical data exists.
+
+9. Industrial Telemetry
+
+The Rust layer is intended to provide a high-integrity telemetry pipeline:
+
+RECEIVE
+   ↓
+PARSE
+   ↓
+VALIDATE
+   ↓
+NORMALISE
+   ↓
+TIMESTAMP
+   ↓
+BUFFER
+   ↓
+STREAM
+   ↓
+STORE
+
+Each observation should carry metadata describing:
+
+Source
+Timestamp
+Sensor
+Measurement
+Unit
+Quality
+Sequence
+Machine identity
+
+Telemetry should be explicitly classified as:
+
+VALID
+SUSPECT
+INVALID
+STALE
+DISCONNECTED
+SIMULATED
+
+This is important because industrial analytics are only as reliable as their underlying measurement provenance.
+
+10. Cybersecurity and Safety Philosophy
+
+TunnelOS is designed around a deliberate separation between monitoring/analytics and certified machine control.
+
+TunnelOS
+    │
+    │ OBSERVES
+    ↓
+Industrial Control System
+    │
+    │ CONTROLS
+    ↓
+TBM
+
+TunnelOS does not assume the role of a safety PLC.
+
+It should not:
+
+Override emergency stops
+Modify certified safety limits
+Bypass manufacturer controls
+Directly operate critical actuators
+Convert analytical recommendations into autonomous machine commands without an appropriately engineered control layer
+
+This architectural separation is consistent with the special security, reliability and safety requirements associated with industrial control systems identified by NIST.
+
+Cybersecurity is consequently treated as an architectural property rather than an additional feature.
+
+11. Information Architecture
+
+TunnelOS is designed to operate across the information lifecycle of a tunnel project.
+
+DESIGN
+  ↓
+SITE INVESTIGATION
+  ↓
+CONSTRUCTION
+  ↓
+EXCAVATION
+  ↓
+MONITORING
+  ↓
+COMMISSIONING
+  ↓
+OPERATION
+  ↓
+MAINTENANCE
+
+This is consistent with the broader direction of structured information management in the built environment, where ISO 19650 addresses information exchange, recording, versioning and organisation across the asset lifecycle.
+
+The long-term opportunity is therefore potentially broader than TBM telemetry alone.
+
+12. Data Model
+
+The conceptual data architecture is:
+
+PROJECT
+│
+├── TUNNEL
+│   ├── ALIGNMENT
+│   ├── SECTIONS
+│   ├── GEOLOGY
+│   └── LINING
+│
+├── TBM
+│   ├── TELEMETRY
+│   ├── COMPONENTS
+│   ├── MAINTENANCE
+│   └── EVENTS
+│
+├── INSTRUMENTATION
+│
+├── SIMULATIONS
+│
+├── OPTIMISATION RUNS
+│
+└── ENGINEERING DECISIONS
+
+This creates a persistent computational record of the project.
+
+13. Event-Sourced Engineering History
+
+TunnelOS should preserve the history of significant machine and engineering events.
+
+For example:
+
+08:41  TBM STARTED
+
+09:17  ADVANCE RATE INCREASED
+
+09:43  GEOLOGICAL TRANSITION
+
+10:02  TORQUE INCREASE
+
+10:18  VIBRATION WARNING
+
+10:31  TBM PAUSED
+
+11:04  INSPECTION COMPLETED
+
+11:37  TBM RESUMED
+
+This enables retrospective analysis of the relationship between:
+
+ground → machine → intervention → outcome.
+
+Such historical relationships are potentially valuable intellectual and commercial assets.
+
+14. Competitive Positioning
+
+TunnelOS should not be understood as merely:
+
+A dashboard
+A SCADA replacement
+A project-management system
+A generic IoT platform
+An AI chatbot for engineers
+
+Its intended position is between these categories:
+
+INDUSTRIAL DATA
+       +
+GEOTECHNICAL DATA
+       +
+DIGITAL TWIN
+       +
+SIMULATION
+       +
+OPTIMISATION
+       +
+ENGINEERING WORKFLOW
+
+The market already demonstrates demand for real-time tunnel monitoring and integrated TBM/geotechnical information systems; existing platforms provide evidence that construction telemetry, instrumentation, BIM visualisation, analytics and TBM dashboards can form a commercially valuable software category.
+
+TunnelOS therefore should compete through architecture, interoperability, analytical depth and extensibility, rather than through the simple novelty of collecting machine data.
+
+15. Proposed Commercial Model
+
+Potential commercial models include:
+
+Project SaaS
+
+Per-project licensing based upon:
+
+Tunnel length
+Number of TBMs
+Data volume
+Users
+Analytical modules
+Enterprise
+
+For:
+
+Major tunnelling contractors
+Infrastructure operators
+Engineering consultancies
+TBM manufacturers
+Analytics
+
+Premium modules for:
+
+Predictive maintenance
+Geological inference
+Optimisation
+Energy analysis
+Production forecasting
+Digital-Twin Infrastructure
+
+Long-term digital representation of infrastructure throughout its operational lifecycle.
+
+16. Potential Customers
+
+The addressable customer universe could include:
+
+Tunnel contractors
+
+TBM operators
+
+Infrastructure owners
+
+Engineering consultancies
+
+Rail infrastructure organisations
+
+Metro authorities
+
+Water utilities
+
+Mining companies
+
+Energy infrastructure developers
+
+TBM manufacturers
+
+The strongest initial wedge is likely to be projects where large volumes of machine and instrumentation data already exist but are insufficiently integrated.
+
+17. Development Philosophy
+
+TunnelOS is designed according to a simulation-first methodology.
+
+Before deployment against physical machinery:
+
+SIMULATED TBM
+      ↓
+SYNTHETIC TELEMETRY
+      ↓
+RUST PIPELINE
+      ↓
+PYTHON DIGITAL TWIN
+      ↓
+KOTLIN INTERFACE
+
+This allows the architecture to be tested without creating a direct dependency on operational machinery.
+
+Only subsequently should validated interfaces to real industrial environments be introduced.
+
+18. Current Architecture
+TunnelOS
+│
+├── Rust
+│   └── Real-time / industrial telemetry
+│
+├── Python
+│   └── Simulation / analytics / optimisation
+│
+├── Kotlin
+│   └── Operator interface / visualisation
+│
+├── PostgreSQL / PostGIS
+│   └── Spatial + historical data
+│
+└── Digital Twin
+    └── Integrated engineering state
+19. Roadmap
+Phase I — Computational Foundation
+Core data models
+Synthetic TBM
+Telemetry schemas
+Rust ingestion engine
+Python simulation engine
+Kotlin dashboard
+Phase II — Digital Twin
+Tunnel geometry
+Geological model
+Machine state
+Historical telemetry
+Event system
+Phase III — Analytics
+Performance modelling
+Energy optimisation
+Cutter-wear modelling
+Maintenance forecasting
+Production prediction
+Phase IV — Industrial Integration
+Industrial protocol adapters
+Validated telemetry interfaces
+Site-specific deployment architecture
+Hardware integration
+Phase V — Multi-Project Platform
+Cloud infrastructure
+Multi-project management
+Enterprise analytics
+Fleet-level intelligence
+Cross-project learning
+20. Investment Thesis
+
+TunnelOS represents a thesis about the computationalisation of underground construction.
+
+The fundamental proposition is not that tunnelling will suddenly become autonomous.
+
+Rather, it is that increasingly instrumented physical infrastructure creates an opportunity for software to transform previously fragmented operational information into a persistent computational model.
+
+The potential value creation mechanism can be represented as:
+
+RAW MACHINE DATA
+       ↓
+STRUCTURED TELEMETRY
+       ↓
+DIGITAL REPRESENTATION
+       ↓
+ENGINEERING KNOWLEDGE
+       ↓
+PREDICTION
+       ↓
+OPTIMISATION
+       ↓
+LOWER UNCERTAINTY
+       ↓
+BETTER PROJECT DECISIONS
+
+This is particularly attractive in tunnelling because the underlying assets are capital-intensive, projects are long-duration, operational uncertainty is material, and machine downtime or inefficient excavation can have substantial economic consequences.
+
+The opportunity is therefore to build vertical software infrastructure for one of the most technically demanding forms of civil construction.
+
+21. Why the Architecture Matters
+
+The strategic significance of TunnelOS lies less in any individual algorithm than in the integration of multiple computational domains.
+
+                    TUNNELOS
+                       │
+        ┌──────────────┼──────────────┐
+        ↓              ↓              ↓
+   INDUSTRIAL      ENGINEERING     GEOSPATIAL
+     DATA             MODELS          DATA
+        │              │              │
+        └──────────────┼──────────────┘
+                       ↓
+                 DIGITAL TWIN
+                       │
+             ┌─────────┴─────────┐
+             ↓                   ↓
+        SIMULATION          OBSERVATION
+             │                   │
+             └─────────┬─────────┘
+                       ↓
+                  OPTIMISATION
+                       ↓
+                 DECISION SUPPORT
+
+The architecture creates the possibility of progressively increasing sophistication without requiring a fundamental rewrite of the platform.
+
+A simple telemetry system can therefore evolve into a digital twin; the digital twin can acquire simulation; simulation can acquire optimisation; and optimisation can eventually support increasingly sophisticated engineering decision systems.
+
+22. Technical Risk
+
+TunnelOS is an engineering software proposition and therefore carries substantial technical risks.
+
+These include:
+
+Sensor-quality variability
+Proprietary machine interfaces
+Sparse failure datasets
+Geological uncertainty
+Model calibration
+False-positive maintenance predictions
+Cybersecurity
+Site integration
+Regulatory requirements
+Safety validation
+Customer procurement cycles
+
+Digital-twin and predictive-maintenance research itself identifies limitations involving explainability, data requirements, generalisation and standardisation.
+
+Accordingly, TunnelOS should not be presented as an already validated autonomous tunnelling system.
+
+Its development strategy should instead emphasise:
+
+measurability → validation → calibration → deployment → expansion.
+
+23. Development Status
+
+Important: This repository represents an architectural and software-development project. Unless explicitly identified elsewhere in the repository, the system should be considered prototype/research software rather than certified industrial-control software.
+
+The current architecture is intended to establish the computational foundation required for future validation against real TBM telemetry.
+
+No claim is made that TunnelOS currently possesses:
+
+Safety certification
+Manufacturer certification
+TBM control authority
+Production-site validation
+Guaranteed geological prediction
+Guaranteed maintenance prediction
+Autonomous excavation capability
+
+These would constitute separate engineering and commercial milestones.
+
+24. Long-Term Vision
+
+The long-term objective is a software platform in which the tunnel becomes a continuously computable object.
+
+THE PHYSICAL TUNNEL
+        ↕
+THE DIGITAL TUNNEL
+        ↕
+THE COMPUTATIONAL MODEL
+        ↕
+THE ENGINEERING DECISION
+
+At maturity, TunnelOS could provide a persistent computational representation extending from initial site investigation through excavation, construction and eventually infrastructure operation.
+
+The resulting platform would represent an evolution from:
+
+software that records construction
+
+toward:
+
+software that models construction.
+
+And ultimately toward:
+
+software that helps engineers reason about construction in real time.
+
+25. Conclusion
+
+TunnelOS proposes an infrastructure-software architecture for a domain where physical complexity, capital intensity and information density converge.
+
+Its technical premise is straightforward:
+
+TBMs already generate enormous quantities of operational information.
+
+The opportunity is to construct the computational layer capable of turning that information into a coherent representation of:
+
+machine state, geological state, project state and economic state.
+
+Rust provides the low-level telemetry substrate.
+
+Python provides the analytical and simulation environment.
+
+Kotlin provides the operational interface.
+
+The digital twin provides the unifying abstraction.
+
+Together, these components form the proposed TunnelOS computational stack.
+
+                 TUNNELOS
+                     │
+             ┌───────┴───────┐
+             ↓               ↓
+        PHYSICAL DATA    ENGINEERING DATA
+             │               │
+             └───────┬───────┘
+                     ↓
+              DIGITAL TWIN
+                     ↓
+          ┌──────────┼──────────┐
+          ↓          ↓          ↓
+      SIMULATE   ANALYSE   OPTIMISE
+          │          │          │
+          └──────────┼──────────┘
+                     ↓
+              HUMAN ENGINEER
+                     ↓
+              BETTER DECISION
+
+TunnelOS is therefore conceived as an attempt to build the computational infrastructure layer for the next generation of underground construction.
+
+References
+National Institute of Standards and Technology, Guide to Industrial Control Systems (ICS) Security, NIST SP 800-82.
+International Organization for Standardization, ISO 19650 — Organization and digitization of information about buildings and civil engineering works.
+Ma, S., Flanigan, K. A. & Bergés, M., State-of-the-art review and synthesis: A requirement-based roadmap for standardized predictive maintenance automation using digital twin technologies.
+Liu, B. et al., Intelligent decision-making method of TBM operating parameters based on multiple constraints and objective optimization.
+Shi, M., Song, X. & Sun, W., Geology prediction based on operation data of TBM: comparison between deep neural network and statistical learning methods.
+
+Investment disclaimer: This README describes a proposed technology architecture and development thesis, not an offer of securities or a representation of current commercial performance. Any investment decision should be based upon independently verified technical demonstrations, customer validation, intellectual-property analysis, regulatory assessment and financial due diligence.
